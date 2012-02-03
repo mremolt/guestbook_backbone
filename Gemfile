@@ -18,6 +18,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 
   gem 'therubyracer'
+
+  gem "zurb-foundation"
 end
 
 group :development do
@@ -29,7 +31,8 @@ group :development do
   gem 'guard-annotate', :require => false
   gem 'annotate', '>= 2.4.1.beta1'
 
-
   gem 'libnotify', :require => false
   gem 'rb-inotify', :require => false
+
+  gem 'routes'
 end
