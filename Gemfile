@@ -24,8 +24,11 @@ group :development do
   gem 'guard', :require => false
   gem 'guard-bundler', :require => false
   gem 'guard-passenger', :require => false
-  gem 'guard-annotate', :require => false
   gem 'guard-livereload', :require => false
+
+  gem 'guard-annotate', :require => false
+  gem 'annotate', '>= 2.4.1.beta1'
+
 
   gem 'libnotify', :require => false
   gem 'rb-inotify', :require => false
