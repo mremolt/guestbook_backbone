@@ -19,7 +19,7 @@ guard 'livereload' do
   watch(%r{config/locales/.+\.yml})
 end
 
-guard 'annotate', position: 'after', routes: true, run_at_start: false do
+guard 'annotate', position: 'after', run_at_start: false do
   watch( 'db/schema.rb' )
 
   # Uncomment the following line if you are running routes annotation

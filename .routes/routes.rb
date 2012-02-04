@@ -1,4 +1,9 @@
 GuestbookBackbone::Application.routes.draw do
+  resources :entries
+
+  root :to => 'home#index'
+  
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -57,5 +62,12 @@ GuestbookBackbone::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 end
 #== Route Map
-# Generated on 03 Feb 2012 12:55
+# Generated on 04 Feb 2012 12:13
 #
+#            POST   /entries(.:format)          entries#create
+#  new_entry GET    /entries/new(.:format)      entries#new
+# edit_entry GET    /entries/:id/edit(.:format) entries#edit
+#      entry GET    /entries/:id(.:format)      entries#show
+#            PUT    /entries/:id(.:format)      entries#update
+#            DELETE /entries/:id(.:format)      entries#destroy
+#       root        /                           home#index
