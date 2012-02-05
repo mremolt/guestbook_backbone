@@ -4,7 +4,7 @@ class GuestbookBackbone.Views.EntryView extends Backbone.View
   template: JST['backbone/templates/entry']
 
   render: =>
-    $content = $ @template( entry: @model )
+    $content = $ @template( entry: @model.toJSON() )
     $(@el).prepend $content
 
     if @options.slow

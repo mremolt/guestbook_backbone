@@ -6,26 +6,25 @@ class GuestbookBackbone.Views.IndexView extends Backbone.View
 
 
   initialize: ->
-    $.getJSON '/entries.json', ( data ) =>
-      for entry in data
-        entryView = new GuestbookBackbone.Views.EntryView(model: entry)
-        entryView.render()
+    @collection = new GuestbookBackbone.Collections.EntriesCollection
+
+    @collection.bind 'reset', @render, @
+    @collection.bind 'add', @addEntry, @
+
+    @collection.fetch()
 
 
   # event methods
 
   submitEntry: ( event ) ->
     event.preventDefault()
+    $form = $ 'form'
 
-    view = @
-    $form = $ event.target
-
-    $.post '/entries', $form.serialize(), ( data ) ->
-      entryView = new GuestbookBackbone.Views.EntryView(model: data, slow: true)
-      entryView.render()
-
-      view.resetForm()
-      view.success 'Eintrag gespeichert'
+    @collection.create
+      user: $form.find( '#entry_user' ).val()
+      email: $form.find( '#entry_email' ).val()
+      homepage: $form.find( '#entry_homepage' ).val()
+      body: $form.find( '#entry_body' ).val()
 
 
   # helper methods
@@ -42,4 +41,16 @@ class GuestbookBackbone.Views.IndexView extends Backbone.View
     ( $ 'form' )[0].reset()
 
 
+  render: ->
+    ( $ 'div#posts' ).empty()
+    for entry in @collection.models
+      entryView = new GuestbookBackbone.Views.EntryView(model: entry)
+      entryView.render()
 
+
+  addEntry: ( entry ) ->
+    entryView = new GuestbookBackbone.Views.EntryView(model: entry, slow: true)
+    entryView.render()
+
+    @resetForm()
+    @success 'Eintrag gespeichert'
