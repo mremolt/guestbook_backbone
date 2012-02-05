@@ -8,7 +8,8 @@ class GuestbookBackbone.Views.IndexView extends Backbone.View
   initialize: ->
     $.getJSON '/entries.json', ( data ) =>
       for entry in data
-        @insertEntry entry
+        entryView = new GuestbookBackbone.Views.EntryView(model: entry)
+        entryView.render()
 
 
   # event methods
@@ -20,25 +21,11 @@ class GuestbookBackbone.Views.IndexView extends Backbone.View
     $form = $ event.target
 
     $.post '/entries', $form.serialize(), ( data ) ->
-      $entry = view.insertEntry data
-      $entry.hide()
-      $entry.slideDown 'slow'
+      entryView = new GuestbookBackbone.Views.EntryView(model: data, slow: true)
+      entryView.render()
 
       view.resetForm()
       view.success 'Eintrag gespeichert'
-
-
-  insertEntry: ( entry ) ->
-    e = $ '<article></article>'
-
-    e.addClass "post"
-    e.attr 'id', entry.id
-
-    e.append "<h4>Von #{entry.user} &lt;#{entry.email}&gt;</h4>"
-    e.append "<p>#{entry.body}</p>"
-
-    ( $ "#posts" ).prepend e
-    e
 
 
   # helper methods
