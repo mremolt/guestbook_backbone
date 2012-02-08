@@ -36,11 +36,13 @@
     function insertEntry(entry) {
       var e = $('<article></article>');
 
+      console.log(entry);
+
       e.addClass("post");
       e.attr('id', entry.id);
 
-      e.append("<h4>Von #{entry.user} &lt;#{entry.email}&gt;</h4>");
-      e.append("<p>#{entry.body}</p>")
+      e.append("<h4>Von " + entry.user + " &lt;" + entry.email + "&gt;</h4>");
+      e.append("<p>" + entry.body + "</p>")
 
       $("#posts").prepend(e);
       return e;
@@ -50,8 +52,8 @@
     jQuery(function( $ ) {
 
       $.getJSON('/entries.json', function(data) {
-        for (entry in data) {
-          insertEntry(entry);
+        for (index in data) {
+          insertEntry( data[index] );
         }
       });
 
